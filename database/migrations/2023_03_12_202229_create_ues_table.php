@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Programme;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,10 +14,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('annee_academique', function (Blueprint $table) {
+        Schema::create('ues', function (Blueprint $table) {
             $table->id();
-            $table->date('date_debut');
-            $table->date('date_fin');
+            $table->string('nom', 100);
+            $table->integer('nombre_ecu');
+            $table->integer('masse_horaire_total');
+            $table->integer('masse_horaire_ecoule');
+            $table->foreignIdFor(Programme::class);
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('annee_academique');
+        Schema::dropIfExists('ues');
     }
 };

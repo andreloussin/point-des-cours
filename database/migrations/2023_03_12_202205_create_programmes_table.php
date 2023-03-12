@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AnneeAcademique;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +14,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('etudiant_responsable', function (Blueprint $table) {
+        Schema::create('programmes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->string('nom', 100);
+            $table->integer('nombre_ue');
+            $table->integer('nombre_ecu');
+            $table->string('filiere', 100);
+            $table->foreignIdFor(AnneeAcademique::class);
             $table->timestamps();
         });
     }
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('etudiant_responsable');
+        Schema::dropIfExists('programmes');
     }
 };

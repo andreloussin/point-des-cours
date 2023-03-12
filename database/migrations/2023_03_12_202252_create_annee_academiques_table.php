@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('ecu', function (Blueprint $table) {
+        Schema::create('annee_academiques', function (Blueprint $table) {
             $table->id();
-            $table->string('nom', 100);
-            $table->integer('masse_horaire_total');
-            $table->integer('masse_horaire_ecoule');
-            $table->string('nom_enseignant',100);
+            $table->date('date_debut');
+            $table->date('date_fin');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ecu');
+        Schema::dropIfExists('annee_academiques');
     }
 };
