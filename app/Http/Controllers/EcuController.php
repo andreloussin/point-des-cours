@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ecu;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class EcuController extends Controller
 {
@@ -14,7 +15,7 @@ class EcuController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Ecu/Index',['ecus'=>Ecu::paginate()]);
     }
 
     /**

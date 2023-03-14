@@ -44,9 +44,11 @@ class AdministrateurController extends Controller
      * @param  \App\Models\Administrateur  $administrateur
      * @return \Illuminate\Http\Response
      */
-    public function show(Administrateur $administrateur)
+    public function show(string $administrateurId)
     {
-        //
+        return view('user.profile', [
+            'user' => Administrateur::findOrFail($administrateurId)
+        ]);
     }
 
     /**

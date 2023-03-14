@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\AdministrateurController;
+use App\Http\Controllers\EcuController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProgrammeController;
+use App\Http\Controllers\UeController;
+use App\Models\AnneeAcademique;
+use App\Models\EtudiantResponsable;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,14 +22,10 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+Route::get("/", function () {
+    return redirect()->route('login');
 });
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -35,4 +37,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+// Route::middleware('admin')->group(function () {
+// });
+Route::resource('administrateurs', AdministrateurController::class)->only(['index', 'show']);
+Route::resource('programmes', ProgrammeController::class)->only(['index', 'show']);
+Route::resource('ues', UeController::class)->only(['index', 'show']);
+Route::resource('ecus', EcuController::class)->only(['index', 'show']);
+Route::resource('annee_academique', AnneeAcademique::class)->only(['index', 'show']);
+Route::resource('etudiant_responsable', EtudiantResponsable::class)->only(['index', 'show']);
+
+require __DIR__ . '/auth.php';
